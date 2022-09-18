@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Models\Commentators;
+use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\{CommentatorsController};
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    //комментарии
+    Route::prefix('comment')->group(function () {
+        Route::get('/index', [CommentatorsController::class, 'index'])->name('commentators');
+    });
 });

@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('commentators', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("avatar");
+            $table->string("avatar")->nullable();
             $table->string("mail")->unique();
             $table->timestamps();
         });
