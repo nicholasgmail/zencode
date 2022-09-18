@@ -142,7 +142,7 @@
             </x-jet-responsive-nav-link>
         </div>
 
-        <!-- Responsive Settings Options -->
+        <!-- Responsive Settings Option -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())

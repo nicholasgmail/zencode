@@ -12,10 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('commentatorgables', function (Blueprint $table) {
-            $table->integer('commentator_id')->unsigned();
+        Schema::create('commentgables', function (Blueprint $table) {
+            $table->integer('commentators_id')->unsigned();
             $table->nullableMorphs('commentgable');
             $table->string('geolocation_ip')->nullable();
+            $table->json('coment_all')->nullable();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('commentatorgables');
+        Schema::dropIfExists('commentgables');
     }
 };

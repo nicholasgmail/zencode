@@ -19,8 +19,8 @@ return new class extends Migration {
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
             $table->string("home_page");
-            $table->string("avatar");
             $table->string("file");
+            $table->nullableMorphs('urltable');
             $table->timestamps();
         });
     }
