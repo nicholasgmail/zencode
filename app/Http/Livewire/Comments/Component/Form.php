@@ -19,7 +19,7 @@ class Form extends Component
             'name' => $this->name,
             'mail' => $this->mail
         ]);
-        $option = new Options(["text" => $this->comment_text]);
+        $option = new Options(["text" => $this->comment_text, "like" => 0, "hash_tag" => ""]);
         $comment->save([$comment]);
         $comment->options()->save($option);
     }

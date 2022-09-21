@@ -4,5 +4,5 @@
             {{ __('Коментарии') }}
         </h2>
     </x-slot>
-    <livewire:comments.index :comment="$comment"/>
+    <livewire:comments.index :comments="$comment"/>
 </x-app-layout>

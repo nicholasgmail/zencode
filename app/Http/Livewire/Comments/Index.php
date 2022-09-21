@@ -10,7 +10,7 @@ class Index extends Component
      * все комментарии
      * @var $comment
      */
-    public $comment;
+    public $comments;
 
     public function render()
     {
