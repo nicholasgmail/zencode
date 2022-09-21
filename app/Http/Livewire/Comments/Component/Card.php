@@ -11,13 +11,15 @@ class Card extends Component
     public $option;
     public $time;
     public $comment;
+    public $text;
 
     public function mount()
     {
-        $this->name = $this->comment->name ?? "";
-        $this->avatar = $this->comment->avatar ?? "";
-        $this->created_at = $this->comment->created_at ?? "";
-        $this->option = $this->comment->options ?? "";
+        $this->name = $this->comment->name;
+        $this->avatar = $this->comment->avatar;
+        $this->option = $this->comment->options->first();
+        $this->text = $this->option->text;
+        $this->time = now()->parse($this->comment->created_at)->format('Y-m-d H:i:s');
     }
 
     public function render()
