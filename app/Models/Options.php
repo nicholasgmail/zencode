@@ -16,6 +16,12 @@ class Options extends Model
      */
     public function commentator()
     {
-        return $this->morphToMany(Commentators::class, 'storylinegable');
+        return $this->morphToMany(Commentators::class, 'commentgable');
+    }
+
+    //ссылки
+    public function url()
+    {
+        return $this->morphOne(Urls::class, 'urltable');
     }
 }

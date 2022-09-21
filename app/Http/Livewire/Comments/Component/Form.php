@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Comments\Component;
 
 use App\Models\Commentators;
+use App\Models\Options;
 use Livewire\Component;
 
 class Form extends Component
@@ -14,17 +15,18 @@ class Form extends Component
 
     public function save()
     {
-        $comments = new Commentators([
+        $comment = new Commentators([
             'name' => $this->name,
             'mail' => $this->mail
         ]);
-        $comments->save();
+        $option = new Options(["text" => $this->comment_text]);
+        $comment->save([$comment]);
+        $comment->options()->save($option);
     }
 
     public function updated()
     {
-        $this->name = "";
-        $this->mail = "";
+
     }
 
     public function render()

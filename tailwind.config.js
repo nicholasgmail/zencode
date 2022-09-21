@@ -10,7 +10,7 @@ module.exports = {
         './resources/views/**/*.blade.php',
     ],
 
-     theme: {
+    theme: {
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
@@ -65,6 +65,9 @@ module.exports = {
             'right-bottom': 'right bottom',
             'right-top': 'right top',
             top: 'top',
+        },
+        lineHeight: {
+            'leading-08': '.8',
         },
         backgroundSize: {
             auto: 'auto',

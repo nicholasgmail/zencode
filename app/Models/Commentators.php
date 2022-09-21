@@ -16,10 +16,4 @@ class Commentators extends Model
     {
         return $this->morphedByMany(Options::class, 'commentgable');
     }
-
-    //ссылки
-    public function url()
-    {
-        return $this->morphOne(Urls::class, 'urltable');
-    }
 }
