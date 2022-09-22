@@ -59,4 +59,5 @@
         class="w-full bg-white text-sm text-gray-500 rounded-lg border border-gray-200 shadow-md p-3">
         <p class="mb-1 leading-tight">{{$text}}</p>
     </div>
+    {{--<livewire:comments.component.card_all :comment="$comment"/>--}}
 </div>

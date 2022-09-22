@@ -12,6 +12,12 @@ class Form extends Component
     public $comment;
     public $comment_text;
     public $mail;
+    public $host;
+
+    public function mount()
+    {
+        $this->host = \Request::getHost();
+    }
 
     public function save()
     {
@@ -19,9 +25,16 @@ class Form extends Component
             'name' => $this->name,
             'mail' => $this->mail
         ]);
-        $option = new Options(["text" => $this->comment_text, "like" => 0, "hash_tag" => ""]);
+        $option = new Options(["text" => $this->comment_text]);
         $comment->save([$comment]);
-        $comment->options()->save($option);
+        $options = $comment->options()->save($option);
+        $options->commentator()->sync([1 => ["geolocation_ip" => $this->host,
+            "text" => collect(["id_all" => "text"])->toJson(JSON_PRETTY_PRINT)]]);
+    }
+
+    public function update()
+    {
+
     }
 
     public function updated()

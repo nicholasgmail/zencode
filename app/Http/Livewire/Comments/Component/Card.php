@@ -15,10 +15,10 @@ class Card extends Component
 
     public function mount()
     {
-        $this->name = $this->comment->name;
-        $this->avatar = $this->comment->avatar;
+        $this->name = $this->comment->name ?? "";
+        $this->avatar = $this->comment->avatar ?? "";
         $this->option = $this->comment->options->first();
-        $this->text = $this->option->text;
+        $this->text = $this->option->text ?? "";
         $this->time = now()->parse($this->comment->created_at)->format('Y-m-d H:i:s');
     }
 

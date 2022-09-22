@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string("name");
             $table->string("avatar")->nullable();
-            $table->string("mail")->unique();
+            $table->string("mail")->nullable();
             $table->timestamps();
         });
     }

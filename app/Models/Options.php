@@ -16,7 +16,7 @@ class Options extends Model
      */
     public function commentator()
     {
-        return $this->morphToMany(Commentators::class, 'commentgable');
+        return $this->morphToMany(Commentators::class, 'commentgable')->withPivot('geolocation_ip', 'coment_all');
     }
 
     //ссылки
@@ -24,4 +24,13 @@ class Options extends Model
     {
         return $this->morphOne(Urls::class, 'urltable');
     }
+
+    /**
+     * TODO удалить
+     * даные по коментатору
+     */
+    /* public function commentinfo()
+     {
+         return $this->belongsToMany(Commentators::class, 'commentgable')->withPivot('geolocation_ip', 'coment_all');
+     }*/
 }

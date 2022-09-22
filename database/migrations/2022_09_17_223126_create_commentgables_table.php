@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->integer('commentators_id')->unsigned();
             $table->nullableMorphs('commentgable');
             $table->string('geolocation_ip')->nullable();
-            $table->json('coment_all')->nullable();
+            $table->json('text')->nullable();
         });
     }
 

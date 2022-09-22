@@ -19,8 +19,8 @@ return new class extends Migration {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->text("text");
-            $table->integer("like");
-            $table->string("hash_tag");
+            $table->integer("like")->default(0);
+            $table->string("hash_tag")->nullable();
             $table->timestamps();
         });
     }
