@@ -28,18 +28,17 @@ class Form extends Component
         $option = new Options(["text" => $this->comment_text]);
         $comment->save([$comment]);
         $options = $comment->options()->save($option);
-        $options->commentator()->sync([1 => ["geolocation_ip" => $this->host,
-            "text" => collect(["id_all" => "text"])->toJson(JSON_PRETTY_PRINT)]]);
+        $options->commentator()->sync([1 => ["commentators_id" => $comment->id, "geolocation_ip" => $this->host,
+            "all_comment" => collect(["id_all" => "text"])->toJson(JSON_PRETTY_PRINT)]]);
+        $this->emit('updCard', true);
+        return $this->new();
     }
 
-    public function update()
+    public function new()
     {
-
-    }
-
-    public function updated()
-    {
-
+        $this->name = "";
+        $this->mail = "";
+        $this->comment_text = "";
     }
 
     public function render()

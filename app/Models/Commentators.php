@@ -14,7 +14,7 @@ class Commentators extends Model
     //опции
     public function options()
     {
-        return $this->morphedByMany(Options::class, 'commentgable')->withPivot('geolocation_ip', 'text');
+        return $this->morphedByMany(Options::class, 'commentgable')->withPivot('geolocation_ip', 'all_comment');
     }
 
     /**

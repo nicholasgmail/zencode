@@ -13,6 +13,7 @@ class Card extends Component
     public $comment;
     public $text;
 
+
     public function mount()
     {
         $this->name = $this->comment->name ?? "";

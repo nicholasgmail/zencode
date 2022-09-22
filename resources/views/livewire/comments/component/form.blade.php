@@ -10,31 +10,29 @@
                         <div class="flex flex-row justify-start items-baseline gap-6">
                             <div class="flex-initial">
                                 <label for="name" class="text-sm">Имя</label>
-                                <input wire:model.lazy="name" id='name' type="text"
+                                <input wire:model="name" id='name' type="text"
                                        class="relative block w-full px-3 py-2 border
                                         border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none
                                         focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                             </div>
                             <div class="flex-initial">
                                 <label for="mail" class="text-sm">Email</label>
-                                <input wire:model.lazy="mail" id='mail' type="text"
+                                <input wire:model="mail" id='mail' type="text"
                                        class="relative block w-full px-3 py-2 border
                                         border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none
                                         focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                             </div>
                         </div>
-                        <div x-data="{ comment_text: @entangle('comment_text') }">
-                            <div x-html="comment_text"></div>
-                        </div>
                         <div class="flex flex-col justify-between items-baseline pt-4">
                             <div class="flex-1 text-sm w-3/5">
                                 <label for="title">Коментарий</label>
-                                <textarea id="editor" wire:model.lazy="comment_text" rows="9"
+                                <textarea id="comment_text" wire:model="comment_text" rows="9"
                                           class="relative block w-full px-3 py-2 border
                                         border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none
                                         focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></textarea>
                             </div>
                             <button
+                                type="submit"
                                 class="py-2 px-4 bg-yellow-700 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-900 focus:outline-none mt-4"
                                 tabindex="-1">
                                 Сохранить

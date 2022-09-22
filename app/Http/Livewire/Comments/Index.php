@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Comments;
 
+use App\Models\Commentators;
 use Livewire\Component;
 
 class Index extends Component
@@ -11,12 +12,31 @@ class Index extends Component
      * @var $comment
      */
     public $comments;
+    public $comments_new;
+
+    /**
+     * обновляем комментарии
+     * @var string[]
+     */
+    protected $listeners = ['updCard' => "allComments"];
+
+    public function allComments($isTru)
+    {
+        if ($isTru) {
+            $this->comments->fresh();
+            return $this->mount();
+        }
+    }
 
     public function mount()
     {
-        /*$this->comments->first()->options->first()->commentinfo()->save(collect([1 => ['geolocation_ip' => "192.168.1.1"],
-            2 => ['comment_all' => collect(['id_all' => "1 | 2"])->toJson(JSON_PRETTY_PRINT)]])->toArray());*/
+        $this->comments_new = $this->comments;
     }
+
+    /*public function updatedComments()
+    {
+        return $this->comments->fresh();
+    }*/
 
     public function render()
     {
