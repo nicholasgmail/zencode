@@ -21,16 +21,15 @@ class Form extends Component
 
     public function save()
     {
-        $comment = new Commentators([
+        $data = \Arr::wrap([
             'name' => $this->name,
-            'mail' => $this->mail
+            'mail' => $this->mail,
+            "text" => $this->comment_text,
+            "geolocation_ip" => $this->host,
+            "all_comment" => collect(["id_all" => "text"])->toJson(JSON_PRETTY_PRINT)
         ]);
-        $option = new Options(["text" => $this->comment_text]);
-        $comment->save([$comment]);
-        $options = $comment->options()->save($option);
-        $options->commentator()->sync([1 => ["commentators_id" => $comment->id, "geolocation_ip" => $this->host,
-            "all_comment" => collect(["id_all" => "text"])->toJson(JSON_PRETTY_PRINT)]]);
-        $this->emit('updCard', true);
+
+        $this->emit('updCard', $data);
         return $this->new();
     }
 

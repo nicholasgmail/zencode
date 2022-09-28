@@ -23,6 +23,16 @@ class Card extends Component
         $this->time = now()->parse($this->comment->created_at)->format('Y-m-d H:i:s');
     }
 
+    public function remove($id)
+    {
+        $this->emitUp('removeCard', $id);
+    }
+
+    public function note($id)
+    {
+        $this->emitUp('noteCard', $id);
+    }
+
     public function render()
     {
         return view('livewire.comments.component.card');
