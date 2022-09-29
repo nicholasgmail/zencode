@@ -13,6 +13,11 @@ class Index extends Component
      * @var $comments
      */
     public $comments;
+    /**
+     * все комментарии родительские
+     * @var $comments
+     */
+    public $comments_parents;
 
     /**
      * переключение модального окна
@@ -50,9 +55,14 @@ class Index extends Component
         $option = new Options(["text" => data_get($data, "text")]);
         $comment->save([$comment]);
         $options = $comment->options()->save($option);
+        if ($this->comment_id) {
+            $all_comment = data_get($this->AllCollect($comment), "id_all");
+            data_set($all_comment, "child_element", true);
+        }
         $options->commentator()->sync([1 => [
             "commentators_id" => $comment->id,
-            "geolocation_ip" => data_get($data, "geolocation_ip")
+            "geolocation_ip" => data_get($data, "geolocation_ip"),
+            "all_comment" => collect($all_comment ?? "")->toJson(JSON_PRETTY_PRINT)
         ]]);
         $this->ParentСomment($comment->id);
         $this->mount();
@@ -62,10 +72,12 @@ class Index extends Component
     private function ParentСomment($id)
     {
         if ($this->comment_id) {
-            $comment = Commentators::find($this->comment_id);
-            $id_all = data_get(json_decode($comment->options->first()->pivot->get("all_comment")), "id_all");
+            $comment = $this->comments->find($this->comment_id);
+            $all_collect = $this->AllCollect($comment);
+            $id_all = data_get($all_collect, "id_all");
             $id_all = \Str::of($id_all . " | " . $id)->trim(" | ");
-            $comment->options()->first()->pivot->update(["all_comment" => collect(["id_all" => $id_all])->toJson(JSON_PRETTY_PRINT)]);
+            data_set($all_comment, "id_all", $id_all);
+            $comment->options()->first()->pivot->update(["all_comment" => collect($all_comment)->toJson(JSON_PRETTY_PRINT)]);
         }
         $this->isDialogOpen = false;
     }
@@ -90,6 +102,15 @@ class Index extends Component
     {
         $this->comment_id = false;
         $this->comments = Commentators::get();
+        $this->comments_parents = $this->comments->filter(function ($v) {
+            $all_collect = $this->AllCollect($v);
+            return !data_get($all_collect, "child_element");
+        });
+    }
+
+    private function AllCollect($comment)
+    {
+        return collect(json_decode($comment->options->first()->pivot->all_comment))->toArray();
     }
 
     public function render()
