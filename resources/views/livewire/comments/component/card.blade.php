@@ -39,11 +39,20 @@
                 <ul class="py-1">
                     <li>
                         <a wire:click.prevent="note({{$comment->id}})"
-                           class="block py-2 px-4 text-sm cursor-pointer text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{__('Запись')}}</a>
+                           class="block py-2 px-4 text-sm cursor-pointer text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            <svg class="inline w-1/12 mr-1 pb-1 svg_white" viewBox="0 0 22 22">
+                                <path
+                                    d="M2.949,19.435a.122.122,0,0,0,.034,0c.156-.036,4.427-1.319,5.24-1.564a.546.546,0,0,0,.234-.14L19.211,6.973a.77.77,0,0,0,.227-.5.687.687,0,0,0-.2-.533L16,2.7a.685.685,0,0,0-.488-.2h-.021a.773.773,0,0,0-.522.229L4.213,13.483a.557.557,0,0,0-.142.236L2.508,18.956C2.444,19.168,2.767,19.435,2.949,19.435Zm2.16-5.257,2.656,2.649c-1.216.366-2.736.825-3.786,1.138Z"></path>
+                            </svg>
+                            {{__('Запись')}}</a>
                     </li>
                     <li>
                         <a wire:click.prevent="remove({{$comment->id}})"
-                           class="block py-2 px-4 text-sm cursor-pointer text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{__('Удалить')}}</a>
+                           class="block py-2 px-4 text-sm cursor-pointer text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            <svg class="inline w-1/12 mr-1 pb-1 svg_white" viewBox="0 0 22 22">
+                                <path
+                                    d="M2.5,6.021a.5.5,0,0,0,.5.5h.5L4.957,19a.5.5,0,0,0,.5.452H16.046a.5.5,0,0,0,.5-.452L18,6.521h.5a.5.5,0,0,0,.5-.5v-.5A.518.518,0,0,0,18.5,5H15V4a1.5,1.5,0,0,0-1.5-1.5H8A1.5,1.5,0,0,0,6.5,4V5H3a.518.518,0,0,0-.5.521Zm8.95,10.2a.725.725,0,0,1-1.45,0V8.725a.725.725,0,0,1,1.45,0Zm2.263-7.542a.725.725,0,0,1,1.444.133l-.683,7.459a.725.725,0,1,1-1.444-.132ZM8,4h5.5V5H8ZM7,8.019a.725.725,0,0,1,.788.655l.683,7.46a.725.725,0,1,1-1.444.132L6.343,8.807A.724.724,0,0,1,7,8.019Z"></path>
+                            </svg>{{__('Удалить')}}</a>
                     </li>
                 </ul>
             </div>
