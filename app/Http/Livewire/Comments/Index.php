@@ -10,9 +10,21 @@ class Index extends Component
 {
     /**
      * все комментарии
-     * @var $comment
+     * @var $comments
      */
     public $comments;
+
+    /**
+     * переключение модального окна
+     * @var $isDialogOpen
+     */
+    public $isDialogOpen;
+
+    /**
+     * комментарий к тексту
+     * @var $isDialogOpen
+     */
+    public $comment_id;
 
     /**
      * обновляем комментарии
@@ -23,6 +35,11 @@ class Index extends Component
         'noteCard' => "noteComment",
         'removeCard' => "removeComment",
     ];
+
+    public function boot()
+    {
+        $this->isDialogOpen = false;
+    }
 
     public function allComments($data)
     {
@@ -35,15 +52,28 @@ class Index extends Component
         $options = $comment->options()->save($option);
         $options->commentator()->sync([1 => [
             "commentators_id" => $comment->id,
-            "geolocation_ip" => data_get($data, "geolocation_ip"),
-            "all_comment" => data_get("all_comment", collect(["id_all" => "text"])->toJson(JSON_PRETTY_PRINT))]]);
+            "geolocation_ip" => data_get($data, "geolocation_ip")
+        ]]);
+        $this->ParentСomment($comment->id);
         $this->mount();
         return "";
     }
 
+    private function ParentСomment($id)
+    {
+        if ($this->comment_id) {
+            $comment = Commentators::find($this->comment_id);
+            $id_all = data_get(json_decode($comment->options->first()->pivot->get("all_comment")), "id_all");
+            $id_all = \Str::of($id_all . " | " . $id)->trim(" | ");
+            $comment->options()->first()->pivot->update(["all_comment" => collect(["id_all" => $id_all])->toJson(JSON_PRETTY_PRINT)]);
+        }
+        $this->isDialogOpen = false;
+    }
+
     public function noteComment($id)
     {
-        dd($id);
+        $this->comment_id = $id;
+        $this->isDialogOpen = !$this->isDialogOpen;
     }
 
     public function removeComment($id)
@@ -58,6 +88,7 @@ class Index extends Component
 
     public function mount()
     {
+        $this->comment_id = false;
         $this->comments = Commentators::get();
     }
 

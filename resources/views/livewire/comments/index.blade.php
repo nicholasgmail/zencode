@@ -16,4 +16,14 @@
             </div>
         </div>
     @endif
+    <x-modal.info wire:model="isDialogOpen" maxWidth="2xl">
+        <x-slot name="title">
+            Оставить комментарий
+        </x-slot>
+        <x-slot name="content">
+            <livewire:comments.component.form :comment="$comments"/>
+        </x-slot>
+        <x-slot name="footer">
+        </x-slot>
+    </x-modal.info>
 </div>
