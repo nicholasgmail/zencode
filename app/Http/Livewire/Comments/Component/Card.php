@@ -13,6 +13,7 @@ class Card extends Component
     public $comment;
     public $comments;
     public $text;
+    public $auth_id;
 
 
     public function mount()
@@ -22,6 +23,8 @@ class Card extends Component
         $this->option = $this->comment->options->first();
         $this->text = $this->option->text ?? "";
         $this->time = now()->parse($this->comment->created_at)->format('Y-m-d H:i:s');
+        $all_comment = $this->AllCollect($this->comment);
+        $this->auth_id = data_get($all_comment, "auth_id");
         $this->comments = $this->comments->filter(function ($v) {
             $all_comment = collect(json_decode($this->comment->options->first()->pivot->all_comment))->toArray();
             $id = data_get($v, "id");
@@ -37,6 +40,11 @@ class Card extends Component
     public function note($id)
     {
         $this->emitUp('noteCard', $id);
+    }
+
+    private function AllCollect($comment)
+    {
+        return collect(json_decode($comment->options->first()->pivot->all_comment))->toArray();
     }
 
     public function render()

@@ -14,13 +14,32 @@
                                        class="relative block w-full px-3 py-2 border
                                         border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none
                                         focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                @if($errors->has('name'))
+                                    @error('name') <span class="error">{{ $message }}</span> @enderror
+                                @endif
                             </div>
                             <div class="flex-initial">
-                                <label for="mail" class="text-sm">Email</label>
-                                <input wire:model="mail" id='mail' type="text"
+                                <label for="email" class="text-sm">Email</label>
+                                <input wire:model="email" id='email' type="text"
                                        class="relative block w-full px-3 py-2 border
                                         border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none
                                         focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                @if($errors->has('email'))
+                                    @error('email') <span class="error">{{ $message }}</span> @enderror
+                                @endif
+                            </div>
+                            <div class="flex-initial">
+                                <div class="flex flex-col relative">
+                                    @if($errors->has('photoFile'))
+                                        @error('photoFile') <span class="error">{{ $message }}</span> @enderror
+                                    @elseif($photoFile !== null)
+                                        <label for="photo" class="text-sm">Добавлена картинка</label>
+                                    @else
+                                        <label for="photo" class="text-sm">Добавить картинку</label>
+                                    @endif
+                                    <input type="file" class="mt-1" wire:model="photoFile" id="photo">
+                                </div>
+                                <div class="absolute" wire:loading wire:target="photoFile"> Uploading...</div>
                             </div>
                         </div>
                         <div class="flex flex-col justify-between items-baseline pt-4">
@@ -30,6 +49,9 @@
                                           class="relative block w-full px-3 py-2 border
                                         border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none
                                         focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></textarea>
+                                @if($errors->has('comment_text'))
+                                    @error('comment_text') <span class="error">{{ $message }}</span> @enderror
+                                @endif
                             </div>
                             <button
                                 type="submit"

@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Comments;
 
 use App\Models\Commentators;
 use App\Models\Options;
+use App\Models\Urls;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Index extends Component
@@ -50,13 +53,15 @@ class Index extends Component
     {
         $comment = new Commentators([
             'name' => data_get($data, "name"),
-            'mail' => data_get($data, "mail")
+            "avatar" => data_get($data, "url"),
+            'mail' => data_get($data, "email")
         ]);
         $option = new Options(["text" => data_get($data, "text")]);
         $comment->save([$comment]);
         $options = $comment->options()->save($option);
+        $all_comment = data_get($this->AllCollect($comment), "id_all");
+        data_set($all_comment, "auth_id", auth()->id());
         if ($this->comment_id) {
-            $all_comment = data_get($this->AllCollect($comment), "id_all");
             data_set($all_comment, "child_element", true);
         }
         $options->commentator()->sync([1 => [
@@ -91,6 +96,8 @@ class Index extends Component
     public function removeComment($id)
     {
         $comment = Commentators::find($id);
+        $path = Str::replaceFirst('storage/', '/public/', $comment->avatar);
+        Storage::delete($path);
         $options = $comment->options();
         $options->delete();
         $options->detach();
